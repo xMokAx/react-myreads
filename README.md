@@ -1,7 +1,6 @@
 # MyReads
 This project is part of the Udacity Front End Nanodegree.
-A [React.js]() bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.
-* **Try it now:** https://xmokax.github.io/react-myreads/
+A [React.js](https://reactjs.org/) bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.
 
 ## Installation and Launch
 
