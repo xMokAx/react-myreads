@@ -14,7 +14,7 @@ $ git clone https://github.com/xMokAx/react-myreads.git
 2. Go into the application folder
 
 ```
-$ cd myreads
+$ cd react-myreads
 ```
 
 3. Install dependencies using `npm` or `yarn` command line tool
