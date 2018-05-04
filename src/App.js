@@ -1,9 +1,10 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import * as BooksAPI from "./utils/BooksAPI";
-import { Link, Route } from "react-router-dom";
 import "./App.css";
-import BooksShelf from "./components/BooksShelf";
+import BooksList from "./components/BooksList";
 import SearchBooks from "./components/SearchBooks";
+import NotFoundPage from "./components/NotFoundPage";
 
 class BooksApp extends React.Component {
   state = {
@@ -27,52 +28,27 @@ class BooksApp extends React.Component {
   render() {
     const { myBooks } = this.state;
     const { changeBookShelf } = this;
-    let currentlyReading = myBooks.filter(
-      book => book.shelf === "currentlyReading"
-    );
-    let wantToRead = myBooks.filter(book => book.shelf === "wantToRead");
-    let read = myBooks.filter(book => book.shelf === "read");
     return (
       <div className="app">
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  <BooksShelf
-                    changeBookShelf={changeBookShelf}
-                    books={currentlyReading}
-                    title="Currently Reading"
-                  />
-                  <BooksShelf
-                    changeBookShelf={changeBookShelf}
-                    books={wantToRead}
-                    title="Want To Read"
-                  />
-                  <BooksShelf
-                    changeBookShelf={changeBookShelf}
-                    books={read}
-                    title="Read"
-                  />
-                </div>
-              </div>
-              <div className="open-search">
-                <Link to="/search">Add a book</Link>
-              </div>
-            </div>
-          )}
-        />
-        <Route
-          path="/search"
-          render={() => (
-            <SearchBooks books={myBooks} changeBookShelf={changeBookShelf} />
-          )}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <BooksList myBooks={myBooks} changeBookShelf={changeBookShelf} />
+            )}
+          />
+          <Route
+            path="/search"
+            render={() => (
+              <SearchBooks
+                myBooks={myBooks}
+                changeBookShelf={changeBookShelf}
+              />
+            )}
+          />
+          <Route component={NotFoundPage} />
+        </Switch>
       </div>
     );
   }
