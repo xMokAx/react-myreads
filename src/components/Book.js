@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Book = props => {
-  const { changeBookShelf, book } = props;
+const Book = ({ changeBookShelf, book }) => {
   let image = book.imageLinks
     ? book.imageLinks.thumbnail
     : "https://books.google.com/googlebooks/images/no_cover_thumb.gif";

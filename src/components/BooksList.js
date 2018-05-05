@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import BooksShelf from "./BooksShelf";
 
-const BooksList = props => {
-  const { myBooks, changeBookShelf } = props;
+const BooksList = ({ myBooks, changeBookShelf, error }) => {
   let currentlyReading = myBooks.filter(
     book => book.shelf === "currentlyReading"
   );
@@ -21,16 +20,19 @@ const BooksList = props => {
             changeBookShelf={changeBookShelf}
             books={currentlyReading}
             title="Currently Reading"
+            error={error}
           />
           <BooksShelf
             changeBookShelf={changeBookShelf}
             books={wantToRead}
             title="Want To Read"
+            error={error}
           />
           <BooksShelf
             changeBookShelf={changeBookShelf}
             books={read}
             title="Read"
+            error={error}
           />
         </div>
       </div>
@@ -43,7 +45,8 @@ const BooksList = props => {
 
 BooksList.propTypes = {
   myBooks: PropTypes.array.isRequired,
-  changeBookShelf: PropTypes.func.isRequired
+  changeBookShelf: PropTypes.func.isRequired,
+  error: PropTypes.string
 };
 
 export default BooksList;

@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Book from "./Book";
 
-const BooksShelf = props => {
-  const { title, books, changeBookShelf } = props;
+const BooksShelf = ({ title, books, changeBookShelf, error }) => {
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{title}</h2>
@@ -19,7 +18,7 @@ const BooksShelf = props => {
             ))}
           </ol>
         ) : (
-          <p>You have no books in this shelf.</p>
+          <p>{error}</p>
         )}
       </div>
     </div>

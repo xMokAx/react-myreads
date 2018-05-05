@@ -8,15 +8,27 @@ import NotFoundPage from "./components/NotFoundPage";
 
 class BooksApp extends React.Component {
   state = {
-    myBooks: []
+    myBooks: [],
+    error: undefined
   };
   componentDidMount() {
     this.fetchMyBooks();
   }
   fetchMyBooks = () => {
-    BooksAPI.getAll().then(books => {
-      this.setState({ myBooks: books });
-    });
+    BooksAPI.getAll()
+      .then(books => {
+        if (!books.length) {
+          this.setState({ error: "You have no books in this shelf" });
+          return;
+        }
+        this.setState({ myBooks: books });
+      })
+      .catch(err => {
+        this.setState({
+          error:
+            "There was an error loading your books, please check your connection"
+        });
+      });
   };
   changeBookShelf = (book, shelf) => {
     book.shelf = shelf;
@@ -26,7 +38,7 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf);
   };
   render() {
-    const { myBooks } = this.state;
+    const { myBooks, error } = this.state;
     const { changeBookShelf } = this;
     return (
       <div className="app">
@@ -35,7 +47,11 @@ class BooksApp extends React.Component {
             exact
             path="/"
             render={() => (
-              <BooksList myBooks={myBooks} changeBookShelf={changeBookShelf} />
+              <BooksList
+                myBooks={myBooks}
+                changeBookShelf={changeBookShelf}
+                error={error}
+              />
             )}
           />
           <Route
