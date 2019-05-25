@@ -18,7 +18,7 @@ const BooksShelf = ({ title, books, changeBookShelf, error }) => {
             ))}
           </ol>
         ) : (
-          <p>{error}</p>
+          <p className="error">{error}</p>
         )}
       </div>
     </div>
