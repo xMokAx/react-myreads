@@ -81,7 +81,7 @@ export default class SearchBooks extends Component {
                     book={book}
                   />
                 ))
-              : query && error && <p>{error}</p>}
+              : query && error && <p className="error">{error}</p>}
           </ol>
         </div>
       </div>
