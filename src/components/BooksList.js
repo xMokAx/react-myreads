@@ -8,7 +8,8 @@ const BooksList = ({
   changeBookShelf,
   error,
   fetchingError,
-  fetchMyBooks
+  fetchMyBooks,
+  isFetchingBooks
 }) => {
   let currentlyReading = myBooks.filter(
     book => book.shelf === "currentlyReading"
@@ -21,7 +22,9 @@ const BooksList = ({
         <h1>MyReads</h1>
       </div>
       <div className="list-books-content">
-        {fetchingError ? (
+        {isFetchingBooks ? (
+          <p className="error fetching-error">Loading Your Books...</p>
+        ) : fetchingError ? (
           <React.Fragment>
             <p className="error fetching-error">{fetchingError}</p>
             <button

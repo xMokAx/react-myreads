@@ -10,26 +10,36 @@ class BooksApp extends React.Component {
   state = {
     myBooks: [],
     error: "You have no books in this shelf",
-    fetchingError: undefined
+    fetchingError: undefined,
+    isFetchingBooks: true
   };
   componentDidMount() {
     this.fetchMyBooks();
   }
   fetchMyBooks = () => {
+    this.setState({
+      isFetchingBooks: true
+    });
     BooksAPI.getAll()
       .then(books => {
         if (!books.length) {
           this.setState({
-            fetchingError: undefined
+            fetchingError: undefined,
+            isFetchingBooks: false
           });
-          return;
+        } else {
+          this.setState({
+            myBooks: books,
+            fetchingError: undefined,
+            isFetchingBooks: false
+          });
         }
-        this.setState({ myBooks: books, fetchingError: undefined });
       })
       .catch(err => {
         this.setState({
           fetchingError:
-            "There was an error loading your books, please check your connection"
+            "There was an error loading your books, please check your connection",
+          isFetchingBooks: false
         });
       });
   };
@@ -41,7 +51,7 @@ class BooksApp extends React.Component {
     BooksAPI.update(book, shelf);
   };
   render() {
-    const { myBooks, error, fetchingError } = this.state;
+    const { myBooks, error, fetchingError, isFetchingBooks } = this.state;
     const { changeBookShelf, fetchMyBooks } = this;
     return (
       <div className="app">
@@ -56,6 +66,7 @@ class BooksApp extends React.Component {
                 changeBookShelf={changeBookShelf}
                 error={error}
                 fetchMyBooks={fetchMyBooks}
+                isFetchingBooks={isFetchingBooks}
               />
             )}
           />
